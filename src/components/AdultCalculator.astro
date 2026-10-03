@@ -1,33 +1,30 @@
 ---
 import { Calculator } from '@lucide/astro';
-import { copy, adultLabels } from '../lib/copy.ts';
-import type { Profile } from '../lib/bmi.ts';
+import {
+  copy,
+  labels,
+  medicalSource,
+  gainSource,
+  ranges,
+} from '../lib/adult-copy.ts';
+import type { Locale } from '../lib/math.ts';
 import '../styles/tokens.css';
 import '../styles/app.css';
 interface Props {
-  profile: Profile;
+  lang: Locale;
 }
-const { profile } = Astro.props;
-const c = copy[profile];
+const { lang } = Astro.props;
+const c = copy[lang];
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const root = 'https://vinasig.github.io/bmi-calculator/';
-const canonical = root + (profile === 'adult' ? 'en/' : '');
-const adultRanges = [
-  'Below 18.5',
-  '18.5 to below 25',
-  '25 to below 30',
-  '30 to below 35',
-  '35 to below 40',
-  '40 or above',
-];
-const categories = Object.entries(adultLabels);
+const canonical = root + (lang === 'en' ? 'en/' : '');
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: c.title,
   url: canonical,
   description: c.description,
-  inLanguage: c.lang,
+  inLanguage: lang,
   applicationCategory: 'HealthApplication',
   operatingSystem: 'Web browser',
   isAccessibleForFree: true,
@@ -40,7 +37,7 @@ const schema = {
 ---
 
 <!doctype html>
-<html lang={c.lang}>
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,14 +45,14 @@ const schema = {
     <title>{c.title} | VINASIG</title>
     <meta name="description" content={c.description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="vi" href={root} />
+    <link rel="alternate" hreflang="en" href={`${root}en/`} />
+    <link rel="alternate" hreflang="x-default" href={root} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={`${c.title} | VINASIG`} />
     <meta property="og:description" content={c.description} />
     <meta property="og:url" content={canonical} />
-    <meta
-      property="og:locale"
-      content={profile === 'military' ? 'vi_VN' : 'en_US'}
-    />
+    <meta property="og:locale" content={lang === 'vi' ? 'vi_VN' : 'en_US'} />
     <link rel="icon" type="image/svg+xml" href={`${base}brand/mark.svg`} />
     {[16, 32, 48].map((size) => (
       <link
@@ -75,7 +72,7 @@ const schema = {
     <link rel="stylesheet" href={`${base}fonts/font.css`} />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
-  <body data-profile={profile}>
+  <body data-tool="adult" data-language={lang}>
     <a class="skip-link" href="#calculator">
       {c.skip}
     </a>
@@ -93,16 +90,16 @@ const schema = {
           <a
             href={base}
             lang="vi"
-            aria-current={profile === 'military' ? 'page' : undefined}
+            aria-current={lang === 'vi' ? 'page' : undefined}
           >
-            BMI NVQS
+            Tiếng Việt
           </a>
           <a
             href={`${base}en/`}
             lang="en"
-            aria-current={profile === 'adult' ? 'page' : undefined}
+            aria-current={lang === 'en' ? 'page' : undefined}
           >
-            Adult BMI
+            English
           </a>
         </nav>
       </header>
@@ -137,7 +134,7 @@ const schema = {
                     type="text"
                     inputmode="decimal"
                     maxlength="12"
-                    placeholder={profile === 'military' ? '65,5' : '65.5'}
+                    placeholder={lang === 'vi' ? '65,5' : '65.5'}
                     required
                     aria-describedby="measurement-hint weight-error"
                   />
@@ -183,70 +180,69 @@ const schema = {
               <p class="category" id="category"></p>
               <p class="supporting" id="calculation"></p>
               <p class="supporting">{c.resultNote}</p>
+              <p class="supporting">
+                {c.exact} <span id="exact-bmi"></span>
+              </p>
             </div>
             <p class="result-scope">{c.scope}</p>
           </section>
+          <div id="result-details" class="workspace-addendum" hidden>
+            <section class="result-section" aria-labelledby="advice-heading">
+              <h3 id="advice-heading">{c.adviceTitle}</h3>
+              <p>
+                {c.reference} <strong id="weight-range"></strong>
+              </p>
+              <p class="supporting">{c.referenceNote}</p>
+              <p id="weight-distance"></p>
+              <p id="weight-change"></p>
+              <p id="health-advice"></p>
+              <p class="supporting">{c.adviceDisclaimer}</p>
+            </section>
+          </div>
         </div>
         <div class="notes">
           <details>
             <summary>{c.details}</summary>
             <p>{c.formula}</p>
-            {profile === 'military' ? (
-              <>
-                <p>{c.legalDetails}</p>
-                <ul class="ranges">
-                  <li>
-                    <span>Dưới 18,0</span>
-                    <span>Dưới ngưỡng BMI</span>
-                  </li>
-                  <li>
-                    <span>18,0 đến 29,9</span>
-                    <span>Trong ngưỡng BMI</span>
-                  </li>
-                  <li>
-                    <span>Trên 29,9</span>
-                    <span>Trên ngưỡng BMI</span>
-                  </li>
-                </ul>
-              </>
-            ) : (
-              <ul class="ranges">
-                {categories.map(([key, label], i) => (
-                  <li data-band={key}>
-                    <span>{adultRanges[i]}</span>
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul class="ranges">
+              {Object.entries(labels[lang]).map(([key, label], index) => (
+                <li data-band={key}>
+                  <span>{ranges[lang][index]}</span>
+                  <span>{label}</span>
+                </li>
+              ))}
+            </ul>
             <p>
-              <a href={c.source}>{c.sourceName}</a>
+              <a href={medicalSource}>{c.sourceName}</a>
             </p>
             <p class="supporting">{c.reviewed}</p>
           </details>
           <details>
             <summary>{c.scopeQuestion}</summary>
             <p>{c.scope}</p>
-            {profile === 'adult' && (
-              <>
-                <p>
-                  <a href="https://www.cdc.gov/bmi/about/index.html">
-                    About BMI at CDC
-                  </a>
-                </p>
-                <p>
-                  <a href="https://www.nhs.uk/health-assessment-tools/calculate-your-body-mass-index/calculate-bmi-for-adults">
-                    NHS guidance on when to avoid an adult BMI tool
-                  </a>
-                </p>
-              </>
-            )}
+            <p>{c.underAdvice}</p>
+            <p>{c.overAdvice}</p>
+            <p>{c.adviceDisclaimer}</p>
+            <p>
+              <a href={gainSource}>{c.adviceSource}</a>
+            </p>
           </details>
           <details>
             <summary>{c.privacyQuestion}</summary>
             <p>{c.privacyDetails}</p>
           </details>
         </div>
+        <section class="tool-choice" aria-labelledby="choice-heading">
+          <h2 id="choice-heading">{c.chooseTitle}</h2>
+          <p>{c.chooseAdult}</p>
+          <p>{c.chooseMilitary}</p>
+          <a
+            id="other-tool"
+            href={`https://vinasig.github.io/nvqs-bmi-calculator/${lang === 'en' ? 'en/' : ''}`}
+          >
+            {c.otherLink}
+          </a>
+        </section>
       </main>
       <footer class="site-footer">
         <p>{c.footer}</p>
@@ -254,7 +250,7 @@ const schema = {
       </footer>
     </div>
     <script>
-      import '../scripts/calculator.ts';
+      import '../scripts/adult-calculator.ts';
     </script>
   </body>
 </html>

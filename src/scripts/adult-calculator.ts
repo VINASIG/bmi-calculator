@@ -1,22 +1,20 @@
 import {
-  adultCategory,
   calculate,
-  displayBmi,
   displayMeasurement,
-  militaryCategory,
-} from '../lib/bmi.ts';
-import type { Field, Profile } from '../lib/bmi.ts';
-import { adultLabels, copy, fieldError, militaryLabels } from '../lib/copy.ts';
+  exactDisplay,
+  formatRatio,
+} from '../lib/math.ts';
+import type { Field, Locale } from '../lib/math.ts';
+import { adultCategory, healthyReference } from '../lib/adult.ts';
+import { copy, fieldError, labels } from '../lib/adult-copy.ts';
 
 function element<T extends HTMLElement>(id: string, type: { new (): T }): T {
   const node = document.getElementById(id);
   if (!(node instanceof type)) throw new Error(`Missing ${id}`);
   return node;
 }
-
-const profile: Profile =
-  document.body.dataset['profile'] === 'military' ? 'military' : 'adult';
-const c = copy[profile];
+const lang: Locale = document.documentElement.lang === 'en' ? 'en' : 'vi';
+const c = copy[lang];
 const form = element('bmi-form', HTMLFormElement);
 const button = element('calculate', HTMLButtonElement);
 const height = element('height', HTMLInputElement);
@@ -28,19 +26,33 @@ const errors = {
 };
 const status = element('status', HTMLParagraphElement);
 const result = element('result', HTMLDivElement);
+const details = element('result-details', HTMLElement);
 const empty = element('empty-result', HTMLDivElement);
 const heading = element('result-heading', HTMLHeadingElement);
 const value = element('bmi-value', HTMLSpanElement);
 const category = element('category', HTMLParagraphElement);
 const calculation = element('calculation', HTMLParagraphElement);
-
+const exact = element('exact-bmi', HTMLSpanElement);
+const range = element('weight-range', HTMLElement);
+const distance = element('weight-distance', HTMLParagraphElement);
+const change = element('weight-change', HTMLParagraphElement);
+const advice = element('health-advice', HTMLParagraphElement);
 function invalidate(message = ''): void {
   result.hidden = true;
+  details.hidden = true;
   empty.hidden = false;
-  value.textContent = '';
-  category.textContent = '';
+  for (const node of [
+    value,
+    category,
+    calculation,
+    exact,
+    range,
+    distance,
+    change,
+    advice,
+  ])
+    node.textContent = '';
   category.removeAttribute('data-state');
-  calculation.textContent = '';
   status.textContent = message;
   status.removeAttribute('data-state');
   for (const key of ['height', 'weight'] as const) {
@@ -49,7 +61,6 @@ function invalidate(message = ''): void {
     errors[key].hidden = true;
   }
 }
-
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   invalidate();
@@ -60,7 +71,7 @@ form.addEventListener('submit', (event) => {
       const error = answer.errors[key];
       if (error) {
         fields[key].setAttribute('aria-invalid', 'true');
-        errors[key].textContent = fieldError(profile, key, error);
+        errors[key].textContent = fieldError(lang, key, error);
         errors[key].hidden = false;
         first ??= key;
       }
@@ -70,28 +81,40 @@ form.addEventListener('submit', (event) => {
     if (first) fields[first].focus();
     return;
   }
-  const { bmi, height: h, weight: w } = answer.measurements;
-  value.textContent = displayBmi(bmi, profile);
-  value.classList.toggle('precise', value.textContent.length > 5);
-  if (profile === 'military') {
-    const band = militaryCategory(bmi);
-    category.textContent = militaryLabels[band];
-    category.dataset['state'] = band === 'within' ? 'info' : 'warning';
-  } else {
-    category.textContent = adultLabels[adultCategory(bmi)];
-    category.dataset['state'] = 'info';
-  }
-  // The recap preserves the input's full precision; no rounded intermediate is
-  // used for arithmetic. Centimeters make the stated calculation unambiguous.
-  calculation.textContent = `${displayMeasurement(w, profile)} kg · ${displayMeasurement(h, profile)} cm`;
+  const measurements = answer.measurements;
+  value.textContent = formatRatio(measurements.bmi, lang);
+  exact.textContent = exactDisplay(
+    measurements.bmi,
+    [185n, 250n, 300n, 350n, 400n],
+    lang,
+  );
+  const band = adultCategory(measurements.bmi);
+  category.textContent = labels[lang][band];
+  category.dataset['state'] = 'info';
+  calculation.textContent = `${displayMeasurement(measurements.weight, lang)} kg · ${displayMeasurement(measurements.height, lang)} cm`;
+  const reference = healthyReference(measurements);
+  range.textContent = `${displayMeasurement(reference.lower, lang)} - ${displayMeasurement(reference.upper, lang)} kg`;
+  distance.textContent = `${c.distance}. ${c.lower} ${displayMeasurement(reference.distanceToLower, lang)} kg. ${c.upper} ${displayMeasurement(reference.distanceToUpper, lang)} kg.`;
+  change.textContent =
+    band === 'underweight'
+      ? `${c.gain} ${displayMeasurement(reference.increaseToLower, lang)} kg.`
+      : band === 'healthy'
+        ? c.maintain
+        : `${c.lose} ${displayMeasurement(reference.decreaseToUpper, lang)} kg.`;
+  advice.textContent =
+    band === 'underweight'
+      ? c.underAdvice
+      : band === 'healthy'
+        ? c.normalAdvice
+        : c.overAdvice;
   empty.hidden = true;
   result.hidden = false;
+  details.hidden = false;
   status.textContent = c.done;
   heading.focus({ preventScroll: true });
   if (window.innerWidth <= 760)
     heading.scrollIntoView({ behavior: 'instant', block: 'start' });
 });
-
 for (const input of [height, weight])
   input.addEventListener('input', () => {
     invalidate(c.edited);

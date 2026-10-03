@@ -48,7 +48,8 @@ a {
 }
 
 .site-header a,
-.site-footer a {
+.site-footer a,
+.tool-choice a {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -101,6 +102,38 @@ h2 {
   line-height: 1.4;
   margin: 0 0 1.5rem;
   font-weight: 600;
+}
+
+h3 {
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+
+.result-section {
+  border-top: 1px solid var(--color-border);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  overflow-wrap: anywhere;
+}
+
+.workspace-addendum {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.workspace-addendum .result-section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.tool-choice {
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+  max-width: 58rem;
 }
 
 p {
@@ -375,6 +408,10 @@ details p {
 }
 
 @media (width <= 760px) {
+  .workspace-addendum {
+    padding: min(2rem, 5vw);
+  }
+
   .workspace {
     grid-template-columns: minmax(0, 1fr);
   }

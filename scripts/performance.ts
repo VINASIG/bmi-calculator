@@ -7,7 +7,7 @@ import { startServer } from './serve.ts';
 import { repositoryRoot, writeOutput, readOptional } from './local.ts';
 
 const phase = process.argv.includes('--baseline') ? 'before' : 'after';
-const profile = process.argv.includes('--adult') ? 'adult' : 'military';
+const profile = process.argv.includes('--english') ? 'en' : 'vi';
 const root = path.join(repositoryRoot, 'dist');
 if (phase === 'before')
   assert(
@@ -88,7 +88,7 @@ try {
         throttlingMethod: 'simulate' as const,
       };
       const result = record(
-        await lighthouse(app.url + (profile === 'adult' ? 'en/' : ''), flags),
+        await lighthouse(app.url + (profile === 'en' ? 'en/' : ''), flags),
       );
       const lhr = record(result['lhr']);
       const audits = record(lhr['audits']);

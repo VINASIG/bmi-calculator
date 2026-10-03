@@ -41,7 +41,21 @@ for (const route of routes) {
     html.includes('application/ld+json') && html.includes('WebApplication'),
   );
   assert(sitemap.includes('<loc>' + canonical + '</loc>'));
-  assert(!html.includes('hreflang='), 'Different tools are not translations');
+  assert.equal(
+    (html.match(/hreflang=/g) ?? []).length,
+    3,
+    'Two actual translations and x-default',
+  );
+  assert(html.includes('id="other-tool"'));
+  assert(!html.includes('data-profile='));
+  const match = /<script type="application\/ld\+json">(.*?)<\/script>/s.exec(
+    html,
+  );
+  assert(match?.[1]);
+  const schema = record(parseJson(Buffer.from(match[1])));
+  assert.equal(schema['url'], canonical);
+  assert.equal(schema['inLanguage'], route.language);
+  assert.equal(schema['@type'], 'WebApplication');
   for (const name of ['height', 'weight'])
     assert(!new RegExp('name="' + name + '"').test(html));
 }
