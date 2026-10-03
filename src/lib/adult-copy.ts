@@ -14,8 +14,8 @@ export const copy = {
     intro:
       'Dành cho người từ 20 tuổi. BMI là chỉ số sàng lọc, không phải chẩn đoán. Không dùng phân loại này cho trẻ em, người dưới 20 tuổi hoặc trong thai kỳ.',
     formTitle: 'Số đo của bạn',
-    height: 'Chiều cao (cm)',
-    weight: 'Cân nặng (kg)',
+    height: 'Chiều cao tính bằng cm',
+    weight: 'Cân nặng tính bằng kg',
     hint: 'Nhập trực tiếp. Chấp nhận dấu phẩy hoặc dấu chấm, tối đa 3 chữ số thập phân.',
     calculate: 'Tính BMI',
     clear: 'Xóa',
@@ -42,7 +42,7 @@ export const copy = {
     privacyDetails:
       'Không gửi số đo đến máy chủ, không lưu lịch sử, không cookie hay analytics. Xóa, đổi ngôn ngữ hoặc tải lại trang để bỏ dữ liệu. Cần mạng cho lần tải trang đầu tiên.',
     formula:
-      'BMI = cân nặng (kg) ÷ chiều cao (m)². Các ngưỡng CDC được so sánh với BMI chưa làm tròn.',
+      'BMI bằng cân nặng tính bằng kg chia cho bình phương chiều cao tính bằng mét. Các ngưỡng CDC được so sánh với BMI chưa làm tròn.',
     reviewed: 'Đối chiếu nguồn ngày 03/10/2026.',
     sourceName: 'Phân loại BMI người lớn của CDC',
     adviceTitle: 'Khoảng cân nặng và lời khuyên',
@@ -59,7 +59,7 @@ export const copy = {
     underAdvice:
       'Nếu thiếu cân, trao đổi với bác sĩ hoặc chuyên gia dinh dưỡng, nhất là khi yếu, mệt hoặc sụt cân không chủ ý. Ăn đều, có thể chia bữa nhỏ, bổ sung thực phẩm giàu dinh dưỡng và nguồn đạm. Không tiếp tục giảm cân.',
     overAdvice:
-      'Nếu BMI từ 25 trở lên, trao đổi với chuyên gia y tế để đánh giá cơ, mỡ và các yếu tố sức khỏe khác. Ưu tiên bữa ăn cân bằng, vận động phù hợp và thay đổi bền vững; tránh nhịn ăn hoặc giảm cân cấp tốc.',
+      'Nếu BMI từ 25 trở lên, trao đổi với chuyên gia y tế để đánh giá cơ, mỡ và các yếu tố sức khỏe khác. Ưu tiên bữa ăn cân bằng, vận động phù hợp và thay đổi bền vững. Tránh nhịn ăn hoặc giảm cân cấp tốc.',
     normalAdvice:
       'Duy trì ăn uống đa dạng, vận động phù hợp và theo dõi thay đổi không chủ ý. Cân nặng trong dải BMI bình thường không bảo đảm mọi mặt sức khỏe đều tốt.',
     adviceDisclaimer:
@@ -81,8 +81,8 @@ export const copy = {
     intro:
       'For adults aged 20 and older. BMI is a screening measure, not a diagnosis. Do not apply these categories to children, people under 20 or during pregnancy.',
     formTitle: 'Your measurements',
-    height: 'Height (cm)',
-    weight: 'Weight (kg)',
+    height: 'Height in cm',
+    weight: 'Weight in kg',
     hint: 'Type directly. A decimal point or comma works, with up to 3 decimal places.',
     calculate: 'Calculate BMI',
     clear: 'Clear',
@@ -126,7 +126,7 @@ export const copy = {
     underAdvice:
       'If you are underweight, speak with a doctor or dietitian, especially if you feel weak, tired or lose weight unintentionally. Eat regularly, consider smaller meals, and include nutritious foods and protein. Do not continue losing weight.',
     overAdvice:
-      'If BMI is 25 or higher, discuss muscle, body fat and other health factors with a health professional. Favor balanced meals, suitable activity and sustainable changes; avoid fasting or rapid weight loss.',
+      'If BMI is 25 or higher, discuss muscle, body fat and other health factors with a health professional. Favor balanced meals, suitable activity and sustainable changes. Avoid fasting or rapid weight loss.',
     normalAdvice:
       'Maintain varied meals and suitable activity, and discuss unexplained weight changes with a clinician. A healthy BMI does not guarantee good health in every respect.',
     adviceDisclaimer:
