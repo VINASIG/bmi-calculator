@@ -1,6 +1,6 @@
 # VINASIG Adult BMI Calculator
 
-[Adult BMI Calculator](https://vinasig.github.io/bmi-calculator/) is an independent, bilingual Astro tool that computes locally without collecting measurements.
+[Adult BMI Calculator](https://bmi.vinasig.io.vn/) is an independent, bilingual Astro tool that computes locally without collecting measurements.
 
 Check adult CDC BMI categories, a reference weight range and general health guidance. For adults aged 20 and older; BMI is a screening measure.
 
@@ -44,6 +44,10 @@ CI verifies Ubuntu and Windows with Chromium, Firefox and WebKit, then deploys o
 - [Specialization verification](docs/audits/2026-10-03-specialization.md)
 
 VINASIG SI agent guidance is in `AGENTS.md` and the pinned local standards snapshot. Read [LICENSES.md](LICENSES.md) for the software, documentation, font and identity scopes.
+
+## Canonical domain
+
+The public site uses [bmi.vinasig.io.vn](https://bmi.vinasig.io.vn/) at the origin root. GitHub Pages remains the deployment service. [Domain maintenance](docs/DOMAIN.md) records DNS, HTTPS, search submission and verification boundaries.
 
 ## License scopes
 
