@@ -6,6 +6,8 @@ This repository contains **one independent tool**: Adult BMI Calculator. Vietnam
 
 Direct text inputs accept centimeters/kilograms and up to three decimal places, with a point or comma. No sliders, accounts, date of birth, analytics, remote computation, input URL parameters or persistent health storage. Reload, locale navigation, history restoration and Clear remove measurements and stale results. Scripts must enable calculation only after loading; absent or blocked scripts cannot submit measurements. Static explanations, source links, navigation and disclosure controls remain available without JavaScript.
 
+Entering valid height and weight immediately updates the result, category and reference guidance without a Calculate button. Empty or invalid input immediately clears the previous result. Updates preserve input focus and scroll position. Input errors appear after blur or explicit Enter validation. IME composition clears stale output and postpones calculation until composition ends. Measurement inputs and Clear start disabled until client handlers are installed. The exact calculation, category boundaries and safe reference weights remain unchanged.
+
 ## Specialized behavior
 
 Adult screening categories use CDC thresholds for ages 20+: underweight below 18.5; healthy 18.5 to below 25; overweight 25 to below 30; obesity classes 1, 2 and 3 at 30, 35 and 40. Do not apply the adult categorization below age 20 or during pregnancy.

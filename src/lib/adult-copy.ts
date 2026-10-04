@@ -18,7 +18,7 @@ export const copy = {
     height: 'Chiều cao tính bằng cm',
     weight: 'Cân nặng tính bằng kg',
     hint: 'Nhập trực tiếp. Chấp nhận dấu phẩy hoặc dấu chấm, tối đa 3 chữ số thập phân.',
-    calculate: 'Tính BMI',
+    automatic: 'Kết quả tự cập nhật khi nhập chiều cao và cân nặng.',
     clear: 'Xóa',
     privacy: 'Số đo chỉ được xử lý trong trình duyệt này.',
     resultTitle: 'Kết quả',
@@ -31,7 +31,6 @@ export const copy = {
     noScript:
       'Bật JavaScript để tính BMI tại chỗ. Phần hướng dẫn vẫn đọc được khi tắt JavaScript.',
     error: 'Kiểm tra các số đo được đánh dấu.',
-    edited: 'Số đo đã thay đổi. Tính lại để xem kết quả mới.',
     done: 'Đã tính BMI và khoảng cân nặng tham khảo.',
     skip: 'Đến công cụ tính BMI',
     navigation: 'Ngôn ngữ',
@@ -86,7 +85,8 @@ export const copy = {
     height: 'Height in cm',
     weight: 'Weight in kg',
     hint: 'Type directly. A decimal point or comma works, with up to 3 decimal places.',
-    calculate: 'Calculate BMI',
+    automatic:
+      'Your result updates automatically as you enter height and weight.',
     clear: 'Clear',
     privacy: 'Your measurements stay in this browser.',
     resultTitle: 'Your result',
@@ -99,7 +99,6 @@ export const copy = {
     noScript:
       'Enable JavaScript to calculate locally. Guidance remains readable without JavaScript.',
     error: 'Check the highlighted measurements.',
-    edited: 'Measurements changed. Calculate again for a new result.',
     done: 'BMI and reference weight range calculated.',
     skip: 'Skip to the BMI calculator',
     navigation: 'Language',

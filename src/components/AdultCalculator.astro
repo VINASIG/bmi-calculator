@@ -134,6 +134,7 @@ const schema = {
                     maxlength="12"
                     placeholder="170"
                     required
+                    disabled
                     aria-describedby="measurement-hint height-error"
                   />
                   <p class="field-error" id="height-error" hidden></p>
@@ -147,6 +148,7 @@ const schema = {
                     maxlength="12"
                     placeholder={lang === 'vi' ? '65,5' : '65.5'}
                     required
+                    disabled
                     aria-describedby="measurement-hint weight-error"
                   />
                   <p class="field-error" id="weight-error" hidden></p>
@@ -155,11 +157,12 @@ const schema = {
               <p class="supporting" id="measurement-hint">
                 {c.hint}
               </p>
+              <p class="supporting">{c.automatic}</p>
+              <button type="submit" hidden disabled data-enter-submit>
+                {lang === 'vi' ? 'Kiểm tra số đo' : 'Check measurements'}
+              </button>
               <div class="form-actions">
-                <button type="submit" id="calculate" class="primary" disabled>
-                  {c.calculate}
-                </button>
-                <button type="reset" class="quiet">
+                <button type="reset" id="clear" class="quiet" disabled>
                   {c.clear}
                 </button>
               </div>

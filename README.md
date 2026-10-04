@@ -4,6 +4,8 @@
 
 Check adult CDC BMI categories, a reference weight range and general health guidance. For adults aged 20 and older; BMI is a screening measure.
 
+Enter height and weight to see the result update automatically. There is no calculation button. Clear removes all measurements and results.
+
 The separate [nvqs-bmi-calculator](https://github.com/VINASIG/nvqs-bmi-calculator) serves the other purpose. Each website has a purpose guide and links to the matching language of the other tool.
 
 ## Run locally
@@ -42,6 +44,7 @@ CI verifies Ubuntu and Windows with Chromium, Firefox and WebKit, then deploys o
 - [Toolchain](docs/TOOLCHAIN.md)
 - [Verification coverage](tests/README.md)
 - [Specialization verification](docs/audits/2026-10-03-specialization.md)
+- [Automatic input verification](docs/audits/automatic-input-2026-10-04.md)
 
 VINASIG SI agent guidance is in `AGENTS.md` and the pinned local standards snapshot. Read [LICENSES.md](LICENSES.md) for the software, documentation, font and identity scopes.
 

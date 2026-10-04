@@ -16,7 +16,7 @@ function element<T extends HTMLElement>(id: string, type: { new (): T }): T {
 const lang: Locale = document.documentElement.lang === 'en' ? 'en' : 'vi';
 const c = copy[lang];
 const form = element('bmi-form', HTMLFormElement);
-const button = element('calculate', HTMLButtonElement);
+const clear = element('clear', HTMLButtonElement);
 const height = element('height', HTMLInputElement);
 const weight = element('weight', HTMLInputElement);
 const fields = { height, weight };
@@ -28,7 +28,6 @@ const status = element('status', HTMLParagraphElement);
 const result = element('result', HTMLDivElement);
 const details = element('result-details', HTMLElement);
 const empty = element('empty-result', HTMLDivElement);
-const heading = element('result-heading', HTMLHeadingElement);
 const value = element('bmi-value', HTMLSpanElement);
 const category = element('category', HTMLParagraphElement);
 const calculation = element('calculation', HTMLParagraphElement);
@@ -37,6 +36,20 @@ const range = element('weight-range', HTMLElement);
 const distance = element('weight-distance', HTMLParagraphElement);
 const change = element('weight-change', HTMLParagraphElement);
 const advice = element('health-advice', HTMLParagraphElement);
+const validated = new Set<HTMLInputElement>();
+let composing = false;
+let clearing = false;
+clear.addEventListener('pointerdown', () => {
+  clearing = true;
+});
+window.addEventListener('pointerup', () => {
+  window.setTimeout(() => {
+    clearing = false;
+  }, 0);
+});
+window.addEventListener('pointercancel', () => {
+  clearing = false;
+});
 function invalidate(message = ''): void {
   result.hidden = true;
   details.hidden = true;
@@ -61,24 +74,26 @@ function invalidate(message = ''): void {
     errors[key].hidden = true;
   }
 }
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
+function refresh(validateAll = false): void {
   invalidate();
+  if (composing) return;
   const answer = calculate(height.value, weight.value);
   if (!answer.ok) {
     let first: Field | undefined;
     for (const key of ['height', 'weight'] as const) {
       const error = answer.errors[key];
-      if (error) {
+      if (error && (validateAll || validated.has(fields[key]))) {
         fields[key].setAttribute('aria-invalid', 'true');
         errors[key].textContent = fieldError(lang, key, error);
         errors[key].hidden = false;
         first ??= key;
       }
     }
-    status.textContent = c.error;
-    status.dataset['state'] = 'error';
-    if (first) fields[first].focus();
+    if (first) {
+      status.textContent = c.error;
+      status.dataset['state'] = 'error';
+      if (validateAll) fields[first].focus();
+    }
     return;
   }
   const measurements = answer.measurements;
@@ -110,16 +125,41 @@ form.addEventListener('submit', (event) => {
   empty.hidden = true;
   result.hidden = false;
   details.hidden = false;
-  status.textContent = c.done;
-  heading.focus({ preventScroll: true });
-  if (window.innerWidth <= 760)
-    heading.scrollIntoView({ behavior: 'instant', block: 'start' });
+  status.textContent = `BMI ${formatRatio(measurements.bmi, lang)}. ${c.done}`;
+}
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  refresh(true);
 });
-for (const input of [height, weight])
+form.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' && event.target instanceof HTMLInputElement) {
+    event.preventDefault();
+    if (!event.isComposing) refresh(true);
+  }
+});
+for (const input of [height, weight]) {
   input.addEventListener('input', () => {
-    invalidate(c.edited);
+    validated.delete(input);
+    refresh();
   });
+  input.addEventListener('blur', (event) => {
+    if (clearing || event.relatedTarget === clear) return;
+    validated.add(input);
+    refresh();
+  });
+  input.addEventListener('compositionstart', () => {
+    composing = true;
+    invalidate();
+  });
+  input.addEventListener('compositionend', () => {
+    composing = false;
+    refresh();
+  });
+}
 form.addEventListener('reset', () => {
+  clearing = false;
+  composing = false;
+  validated.clear();
   invalidate();
   window.setTimeout(() => {
     height.focus();
@@ -138,4 +178,10 @@ window.addEventListener('pageshow', (event) => {
 height.value = '';
 weight.value = '';
 invalidate();
-button.disabled = false;
+for (const input of [height, weight]) input.disabled = false;
+clear.disabled = false;
+for (const submit of form.querySelectorAll<HTMLButtonElement>(
+  '[data-enter-submit]',
+))
+  submit.disabled = false;
+form.dataset['ready'] = 'true';

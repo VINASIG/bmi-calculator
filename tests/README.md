@@ -1,5 +1,11 @@
 # Verification coverage
 
+## Automatic input regression
+
+`tests/browser/automatic-input.spec.ts` checks calculation without a button, incomplete input, valid edits, focus and scroll preservation, immediate stale-result removal, blur validation, recovery, Clear, IME composition, decimal commas and Enter without navigation. Both locales, both themes, all five required sizes and 320 px with 200% text run in all three engines. Evidence is saved to `output/responsive/automatic-input-2026-10-04/after` and must be opened.
+
+Existing browser helpers now enter measurements without submitting. Explicit Enter remains only for keyboard validation scenarios. Manual-button and automatic-result-focus expectations were updated for the owner's requested interaction. Math, privacy, accessibility and geometry assertions remain required.
+
 Unit tests cover exact decimal math, invalid input, rounding and every specialized category/score boundary. The two repositories have independent product tests and independent browser entry points. Only pure arithmetic is duplicated.
 
 Playwright checks both actual translations at 320, 360, 390, 440, 600, 759, 760, 761, 768, 900, 1023, 1024, 1439 and 1440 px widths, at 100% and 200% root text sizes. Captures include idle, validation, result, boundary with expanded notes, and long result states; assertions inspect bounding boxes, unintended overflow and touch target heights. The scoring table is an intentional local horizontal scroll region.

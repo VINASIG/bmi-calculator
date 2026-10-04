@@ -62,13 +62,12 @@ for (const route of ['', 'en/'])
           expect(await page.evaluate(inspectInterface)).toEqual([]);
           expect(await page.evaluate(inspectControlSurfaces)).toEqual([]);
           {
-            await page.locator('#calculate').click();
+            await page.locator('#height').press('Enter');
             expect(await page.evaluate(inspectInterface)).toEqual([]);
             expect(await page.evaluate(inspectControlSurfaces)).toEqual([]);
             for (const weight of ['50', '55', '95']) {
               await page.locator('#height').fill('170');
               await page.locator('#weight').fill(weight);
-              await page.locator('#calculate').click();
               expect(await page.evaluate(inspectInterface)).toEqual([]);
               expect(await page.evaluate(inspectControlSurfaces)).toEqual([]);
             }
