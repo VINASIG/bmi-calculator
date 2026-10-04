@@ -19,7 +19,7 @@ export const copy = {
     weight: 'Cân nặng tính bằng kg',
     hint: 'Nhập trực tiếp. Chấp nhận dấu phẩy hoặc dấu chấm, tối đa 3 chữ số thập phân.',
     automatic: 'Kết quả tự cập nhật khi nhập chiều cao và cân nặng.',
-    clear: 'Xóa',
+    clear: 'Xóa tất cả',
     privacy: 'Số đo chỉ được xử lý trong trình duyệt này.',
     resultTitle: 'Kết quả',
     empty: 'Nhập chiều cao và cân nặng để tính BMI.',
@@ -87,7 +87,7 @@ export const copy = {
     hint: 'Type directly. A decimal point or comma works, with up to 3 decimal places.',
     automatic:
       'Your result updates automatically as you enter height and weight.',
-    clear: 'Clear',
+    clear: 'Clear all',
     privacy: 'Your measurements stay in this browser.',
     resultTitle: 'Your result',
     empty: 'Enter height and weight to calculate BMI.',

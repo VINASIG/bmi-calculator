@@ -1,5 +1,5 @@
 ---
-import { Calculator } from '@lucide/astro';
+import { Calculator, Trash } from '@lucide/astro';
 import ThemeInit from './ThemeInit.astro';
 import SitePreferences from './SitePreferences.astro';
 import {
@@ -162,8 +162,9 @@ const schema = {
                 {lang === 'vi' ? 'Kiểm tra số đo' : 'Check measurements'}
               </button>
               <div class="form-actions">
-                <button type="reset" id="clear" class="quiet" disabled>
-                  {c.clear}
+                <button type="reset" id="clear" class="clear-button" disabled>
+                  <Trash size={18} aria-hidden="true" />
+                  <span>{c.clear}</span>
                 </button>
               </div>
               <p class="supporting privacy">{c.privacy}</p>
