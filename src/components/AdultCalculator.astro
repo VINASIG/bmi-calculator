@@ -1,5 +1,7 @@
 ---
 import { Calculator } from '@lucide/astro';
+import ThemeInit from './ThemeInit.astro';
+import SitePreferences from './SitePreferences.astro';
 import {
   copy,
   labels,
@@ -39,6 +41,7 @@ const schema = {
 <!doctype html>
 <html lang={lang}>
   <head>
+    <ThemeInit />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
@@ -89,6 +92,14 @@ const schema = {
               media="(prefers-color-scheme: dark)"
               srcset={`${base}brand/reversed.svg`}
             />
+            <script is:inline>
+              document.currentScript?.previousElementSibling?.setAttribute(
+                'media',
+                document.documentElement.dataset.theme === 'dark'
+                  ? 'all'
+                  : 'not all',
+              );
+            </script>
             <img
               src={`${base}brand/primary-color.svg`}
               width="540"
@@ -97,22 +108,10 @@ const schema = {
             />
           </picture>
         </a>
-        <nav aria-label={c.navigation}>
-          <a
-            href={base}
-            lang="vi"
-            aria-current={lang === 'vi' ? 'page' : undefined}
-          >
-            Tiếng Việt
-          </a>
-          <a
-            href={`${base}en/`}
-            lang="en"
-            aria-current={lang === 'en' ? 'page' : undefined}
-          >
-            English
-          </a>
-        </nav>
+        <SitePreferences
+          lang={lang}
+          alternate={lang === 'vi' ? `${base}en/` : base}
+        />
       </header>
       <main>
         <div class="intro">

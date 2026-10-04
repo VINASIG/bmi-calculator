@@ -201,7 +201,8 @@ for (const lang of ['vi', 'en'] as const) {
       const skip = page.getByRole('link', { name: c.skip });
       await page.keyboard.press('Tab');
       if (process.platform === 'win32' && info.project.name === 'webkit') {
-        await expect(page.locator('#height')).toBeFocused();
+        // Windows WebKit skips links and now reaches the header theme button.
+        await expect(page.locator('[data-theme-toggle]')).toBeFocused();
         await skip.focus();
       }
       await expect(skip).toBeFocused();
@@ -303,7 +304,9 @@ for (const lang of ['vi', 'en'] as const) {
 test('locale navigation, reload and history clear state', async ({ page }) => {
   await open(page, app.url, 'vi');
   await input(page, 'vi', '170', '50');
-  await page.getByRole('link', { name: 'English', exact: true }).click();
+  await page
+    .getByRole('link', { name: 'Đọc trang này bằng tiếng Anh', exact: true })
+    .click();
   await expect(page.locator('#height')).toHaveValue('');
   await expect(page.locator('#result')).toBeHidden();
   await input(page, 'en', '200', '72');
