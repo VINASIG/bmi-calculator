@@ -7,6 +7,7 @@ export const gainSource =
 export const copy = {
   vi: {
     lang: 'vi',
+    brandHome: 'Trang chủ VINASIG',
     title: 'BMI sức khỏe người lớn',
     description:
       'Tính BMI người lớn theo phân loại CDC. Xem khoảng cân nặng tham khảo và lời khuyên sức khỏe, xử lý số đo ngay trong trình duyệt.',
@@ -74,6 +75,7 @@ export const copy = {
   },
   en: {
     lang: 'en',
+    brandHome: 'VINASIG home',
     title: 'Adult BMI Calculator',
     description:
       'Calculate adult BMI with CDC categories, a reference weight range and general health guidance. Measurements stay in your browser.',
