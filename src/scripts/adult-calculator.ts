@@ -5,7 +5,8 @@ import {
   formatRatio,
 } from '../lib/math.ts';
 import type { Field, Locale } from '../lib/math.ts';
-import { adultCategory, healthyReference } from '../lib/adult.ts';
+import { adultCategory } from '../lib/adult.ts';
+import { adultGuidance } from '../lib/adult-guidance.ts';
 import { copy, fieldError, labels } from '../lib/adult-copy.ts';
 
 function element<T extends HTMLElement>(id: string, type: { new (): T }): T {
@@ -107,21 +108,11 @@ function refresh(validateAll = false): void {
   category.textContent = labels[lang][band];
   category.dataset['state'] = 'info';
   calculation.textContent = `${displayMeasurement(measurements.weight, lang)} kg - ${displayMeasurement(measurements.height, lang)} cm`;
-  const reference = healthyReference(measurements);
-  range.textContent = `${displayMeasurement(reference.lower, lang)} - ${displayMeasurement(reference.upper, lang)} kg`;
-  distance.textContent = `${c.distance}. ${c.lower} ${displayMeasurement(reference.distanceToLower, lang)} kg. ${c.upper} ${displayMeasurement(reference.distanceToUpper, lang)} kg.`;
-  change.textContent =
-    band === 'underweight'
-      ? `${c.gain} ${displayMeasurement(reference.increaseToLower, lang)} kg.`
-      : band === 'healthy'
-        ? c.maintain
-        : `${c.lose} ${displayMeasurement(reference.decreaseToUpper, lang)} kg.`;
-  advice.textContent =
-    band === 'underweight'
-      ? c.underAdvice
-      : band === 'healthy'
-        ? c.normalAdvice
-        : c.overAdvice;
+  const guidance = adultGuidance(measurements, lang);
+  range.textContent = guidance.range;
+  distance.textContent = guidance.distance;
+  change.textContent = guidance.change;
+  advice.textContent = guidance.advice;
   empty.hidden = true;
   result.hidden = false;
   details.hidden = false;

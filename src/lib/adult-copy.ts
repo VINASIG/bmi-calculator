@@ -13,7 +13,7 @@ export const copy = {
       'Tính BMI người lớn theo phân loại CDC. Xem khoảng cân nặng tham khảo và lời khuyên sức khỏe, xử lý số đo ngay trong trình duyệt.',
     lead: 'Hai số đo. Hiểu rõ chỉ số BMI của bạn.',
     intro:
-      'Dành cho người từ 20 tuổi. BMI là chỉ số sàng lọc, không phải chẩn đoán. Không dùng phân loại này cho trẻ em, người dưới 20 tuổi hoặc trong thai kỳ.',
+      'Dành cho người từ 20 tuổi. BMI giúp tham khảo cân nặng theo chiều cao, không cho biết bạn có bệnh hay không. Không dùng phân loại này cho người dưới 20 tuổi hoặc trong thai kỳ.',
     formTitle: 'Số đo của bạn',
     height: 'Chiều cao tính bằng cm',
     weight: 'Cân nặng tính bằng kg',
@@ -24,10 +24,11 @@ export const copy = {
     resultTitle: 'Kết quả',
     empty: 'Nhập chiều cao và cân nặng để tính BMI.',
     resultNote:
-      'BMI hiển thị 1 chữ số thập phân. Phân loại dùng giá trị chính xác trước khi làm tròn.',
-    exact: 'Giá trị dùng để đối chiếu',
+      'Số BMI ở trên được làm tròn cho dễ đọc. Việc xếp nhóm vẫn dùng số đầy đủ, nên không đổi nhóm chỉ vì làm tròn.',
+    bmiExplanation: 'Vì sao số BMI được làm tròn?',
+    exact: 'BMI chi tiết hơn là',
     scope:
-      'BMI không phân biệt cơ, mỡ và xương. Chuyên gia y tế cần xem thêm tình trạng sức khỏe và các số đo khác.',
+      'BMI không cho biết bạn có bao nhiêu cơ hay mỡ. Nếu lo lắng về sức khỏe, hãy hỏi bác sĩ.',
     noScript:
       'Bật JavaScript để tính BMI tại chỗ. Phần hướng dẫn vẫn đọc được khi tắt JavaScript.',
     error: 'Kiểm tra các số đo được đánh dấu.',
@@ -43,27 +44,23 @@ export const copy = {
       'Không gửi số đo đến máy chủ, không lưu lịch sử, không cookie hay analytics. Xóa, đổi ngôn ngữ hoặc tải lại trang để bỏ dữ liệu. Cần mạng cho lần tải trang đầu tiên.',
     formula:
       'BMI bằng cân nặng tính bằng kg chia cho bình phương chiều cao tính bằng mét. Các ngưỡng CDC được so sánh với BMI chưa làm tròn.',
-    reviewed: 'Đối chiếu nguồn ngày 03/10/2026.',
+    reviewed: 'Đối chiếu nguồn ngày 04-10-2026.',
     sourceName: 'Phân loại BMI người lớn của CDC',
-    adviceTitle: 'Khoảng cân nặng và lời khuyên',
-    reference: 'Khoảng tham khảo tại chiều cao đã nhập',
+    adviceTitle: 'Cân nặng và lời khuyên',
+    reference: 'Với chiều cao của bạn, cân nặng tham khảo là',
+    weightMethod: 'Cách tính khoảng cân nặng',
     referenceNote:
-      'Khoảng quy đổi dùng BMI 18,5 đến 24,9. Cận thấp làm tròn lên và cận cao làm tròn xuống đến 0,1 kg, để số hiển thị nằm trong khoảng tham khảo. CDC phân loại cân nặng bình thường từ 18,5 đến dưới 25.',
-    lower: 'Cận thấp',
-    upper: 'Cận cao',
-    distance: 'Khoảng cách đến hai cận',
-    gain: 'Mức chênh lệch để tới cận thấp',
-    lose: 'Mức chênh lệch để tới cận cao',
+      'Khoảng cân nặng này được tính từ chiều cao của bạn, với BMI từ 18,5 đến 24,9. Hai đầu khoảng được làm tròn đến 0,1 kg, số nhỏ làm tròn lên và số lớn làm tròn xuống để vẫn nằm trong khoảng đó. CDC xếp cân nặng bình thường từ BMI 18,5 đến dưới 25, nên cân nặng hơi cao hơn số cuối khoảng vẫn có thể thuộc nhóm bình thường.',
     maintain:
-      'Số đo đang trong khoảng BMI bình thường. Không cần cố đạt một cân nặng duy nhất.',
+      'Cân nặng của bạn ở mức bình thường theo BMI. Không cần cố đạt một số cân duy nhất.',
     underAdvice:
-      'Nếu thiếu cân, trao đổi với bác sĩ hoặc chuyên gia dinh dưỡng, nhất là khi yếu, mệt hoặc sụt cân không chủ ý. Ăn đều, có thể chia bữa nhỏ, bổ sung thực phẩm giàu dinh dưỡng và nguồn đạm. Không tiếp tục giảm cân.',
+      'Nên hỏi bác sĩ hoặc chuyên gia dinh dưỡng về cách tăng cân phù hợp, nhất là khi bạn yếu, mệt hoặc sụt cân dù không định giảm. Ăn đủ bữa, có thể thêm bữa nhỏ và các món như trứng, cá, thịt hoặc đậu. Không tiếp tục giảm cân.',
     overAdvice:
-      'Nếu BMI từ 25 trở lên, trao đổi với chuyên gia y tế để đánh giá cơ, mỡ và các yếu tố sức khỏe khác. Ưu tiên bữa ăn cân bằng, vận động phù hợp và thay đổi bền vững. Tránh nhịn ăn hoặc giảm cân cấp tốc.',
+      'Nên hỏi bác sĩ để biết bạn có cần giảm cân hay không, vì BMI không phân biệt cơ và mỡ. Ăn đủ bữa, thêm rau và vận động phù hợp với sức khỏe. Nếu cần giảm cân, hãy thay đổi từ từ. Tránh nhịn ăn hoặc giảm cân cấp tốc.',
     normalAdvice:
-      'Duy trì ăn uống đa dạng, vận động phù hợp và theo dõi thay đổi không chủ ý. Cân nặng trong dải BMI bình thường không bảo đảm mọi mặt sức khỏe đều tốt.',
+      'Tiếp tục ăn uống đa dạng và vận động phù hợp. Nếu cân nặng thay đổi dù bạn không định tăng hay giảm, hãy hỏi bác sĩ. BMI bình thường không có nghĩa là mọi mặt sức khỏe đều tốt.',
     adviceDisclaimer:
-      'Thông tin tham khảo chung và phép quy đổi số học, không thay thế khám, chẩn đoán hoặc kế hoạch dinh dưỡng cá nhân. Với số đo bất thường, cần được chuyên gia y tế đánh giá.',
+      'Khoảng này để tham khảo, không phải số cân bạn bắt buộc phải đạt. Lời khuyên không thay thế việc khám bác sĩ hoặc hướng dẫn riêng từ chuyên gia dinh dưỡng.',
     adviceSource: 'Hướng dẫn NHS về tăng cân lành mạnh',
     chooseTitle: 'Bạn nên dùng công cụ nào?',
     chooseAdult:
@@ -80,7 +77,7 @@ export const copy = {
       'Calculate adult BMI with CDC categories, a reference weight range and general health guidance. Measurements stay in your browser.',
     lead: 'Two measurements. Understand your BMI.',
     intro:
-      'For adults aged 20 and older. BMI is a screening measure, not a diagnosis. Do not apply these categories to children, people under 20 or during pregnancy.',
+      'For adults aged 20 and older. BMI helps you check weight for your height, but cannot tell whether you have an illness. Do not use these categories under age 20 or during pregnancy.',
     formTitle: 'Your measurements',
     height: 'Height in cm',
     weight: 'Weight in kg',
@@ -92,10 +89,11 @@ export const copy = {
     resultTitle: 'Your result',
     empty: 'Enter height and weight to calculate BMI.',
     resultNote:
-      'BMI displays 1 decimal place. Categories use the exact value before rounding.',
-    exact: 'Value used for comparison',
+      'The BMI above is rounded to make it easier to read. Your category still uses the full number, so rounding alone cannot change it.',
+    bmiExplanation: 'Why is the BMI number rounded?',
+    exact: 'BMI in more detail is',
     scope:
-      'BMI does not distinguish muscle, fat and bone. A health professional needs other health information and measurements to interpret it.',
+      'BMI cannot tell how much muscle or fat you have. Ask a doctor if you are concerned about your health.',
     noScript:
       'Enable JavaScript to calculate locally. Guidance remains readable without JavaScript.',
     error: 'Check the highlighted measurements.',
@@ -111,27 +109,23 @@ export const copy = {
       'No measurements are sent to a server, saved in history, cookies or analytics. Clear, change language or reload to remove data. An internet connection is needed for the initial page load.',
     formula:
       'BMI = weight in kilograms ÷ height in meters squared. CDC thresholds use the BMI before rounding.',
-    reviewed: 'Sources checked on 3 October 2026.',
+    reviewed: 'Sources checked on 4 October 2026.',
     sourceName: 'CDC adult BMI categories',
-    adviceTitle: 'Weight range and health guidance',
-    reference: 'Reference range at your entered height',
+    adviceTitle: 'Your weight and next steps',
+    reference: 'At your height, the reference weight range is',
+    weightMethod: 'How this weight range is calculated',
     referenceNote:
-      'This conversion uses BMI 18.5 through 24.9. The lower weight is rounded up and the upper weight down to 0.1 kg to keep displayed values inside that range. The CDC healthy category is 18.5 to below 25.',
-    lower: 'Lower boundary',
-    upper: 'Upper boundary',
-    distance: 'Distance to each boundary',
-    gain: 'Difference to reach the lower boundary',
-    lose: 'Difference to reach the upper boundary',
+      'This range uses your height and BMI from 18.5 to 24.9. Both ends are rounded to 0.1 kg, the smaller weight up and the larger weight down, to stay within that range. The CDC healthy category runs from BMI 18.5 to below 25, so a weight slightly above the last number may still be in the healthy category.',
     maintain:
-      'These measurements fall in the healthy BMI category. There is no single weight you need to reach.',
+      'Your weight is in the healthy BMI category. There is no single weight you need to reach.',
     underAdvice:
-      'If you are underweight, speak with a doctor or dietitian, especially if you feel weak, tired or lose weight unintentionally. Eat regularly, consider smaller meals, and include nutritious foods and protein. Do not continue losing weight.',
+      'Ask a doctor or dietitian about a suitable way to gain weight, especially if you feel weak, tired or lose weight without trying. Eat regular meals, add smaller meals if helpful, and include foods such as eggs, fish, meat or beans. Do not continue losing weight.',
     overAdvice:
-      'If BMI is 25 or higher, discuss muscle, body fat and other health factors with a health professional. Favor balanced meals, suitable activity and sustainable changes. Avoid fasting or rapid weight loss.',
+      'Ask a doctor whether you need to lose weight, because BMI cannot tell muscle from fat. Eat regular meals, include vegetables and stay active in a way that suits your health. If weight loss is needed, make gradual changes. Avoid fasting or rapid weight loss.',
     normalAdvice:
-      'Maintain varied meals and suitable activity, and discuss unexplained weight changes with a clinician. A healthy BMI does not guarantee good health in every respect.',
+      'Keep eating varied meals and staying active in a way that suits your health. Ask a doctor if your weight changes without trying to gain or lose it. A healthy BMI does not mean every aspect of your health is good.',
     adviceDisclaimer:
-      'General reference information and arithmetic, not a diagnosis or an individual nutrition plan. Unusual measurements need professional assessment.',
+      'This range is a reference, not a weight you must reach. The guidance does not replace medical care or advice tailored to you by a dietitian.',
     adviceSource: 'NHS guidance on healthy weight gain',
     chooseTitle: 'Which tool should you use?',
     chooseAdult:

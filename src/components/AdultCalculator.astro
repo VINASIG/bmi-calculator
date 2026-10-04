@@ -194,10 +194,13 @@ const schema = {
               </p>
               <p class="category" id="category"></p>
               <p class="supporting" id="calculation"></p>
-              <p class="supporting">{c.resultNote}</p>
-              <p class="supporting">
-                {c.exact} <span id="exact-bmi"></span>
-              </p>
+              <details id="bmi-explanation">
+                <summary>{c.bmiExplanation}</summary>
+                <p>{c.resultNote}</p>
+                <p>
+                  {c.exact} <span id="exact-bmi"></span>
+                </p>
+              </details>
             </div>
             <p class="result-scope">{c.scope}</p>
           </section>
@@ -207,11 +210,14 @@ const schema = {
               <p>
                 {c.reference} <strong id="weight-range"></strong>
               </p>
-              <p class="supporting">{c.referenceNote}</p>
-              <p id="weight-distance"></p>
               <p id="weight-change"></p>
               <p id="health-advice"></p>
               <p class="supporting">{c.adviceDisclaimer}</p>
+              <details id="weight-method">
+                <summary>{c.weightMethod}</summary>
+                <p>{c.referenceNote}</p>
+                <p id="weight-distance"></p>
+              </details>
             </section>
           </div>
         </div>

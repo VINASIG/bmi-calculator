@@ -97,6 +97,7 @@ for (const lang of ['vi', 'en'] as const) {
             await expand(page);
             for (const weight of ['73.999', '74', '100', '120', '140', '160']) {
               await input(page, lang, '200', weight);
+              await expand(page);
               await axe(page);
             }
             await input(page, lang, '170.125', '65.875');

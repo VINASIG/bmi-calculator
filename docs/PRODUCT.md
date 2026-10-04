@@ -12,7 +12,7 @@ Entering valid height and weight immediately updates the result, category and re
 
 Adult screening categories use CDC thresholds for ages 20+: underweight below 18.5; healthy 18.5 to below 25; overweight 25 to below 30; obesity classes 1, 2 and 3 at 30, 35 and 40. Do not apply the adult categorization below age 20 or during pregnancy.
 
-Show the entered-height weight reference corresponding to BMI 18.5–24.9, arithmetic distance to both ends and the difference towards a healthy reference for underweight/overweight readings. These are general mathematical references, not an individual prescribed target. Underweight guidance recommends professional assessment, regular nutritious meals and no further weight loss. Never import military rules, physique scoring or record comparison into this UI.
+Show the entered-height weight reference corresponding to BMI 18.5-24.9 and a plain-language comparison for underweight/overweight readings. For 170 cm and 50 kg, show 53.5 - 71.9 kg and explain that the entered weight is about 3.5 kg below 53.5 kg. Keep comparisons with both ends and the inward-rounding explanation in a closed "How this weight range is calculated" disclosure. Keep additional BMI precision and the reason for rounding in a separate closed disclosure. Use exact category decisions, including the healthy category above the displayed reference end but below BMI 25. These are general references, not an individual prescribed target. Underweight guidance recommends professional assessment, regular nutritious meals and no further weight loss. Never import military rules, physique scoring or record comparison into this UI.
 
 ## Design and publication
 
