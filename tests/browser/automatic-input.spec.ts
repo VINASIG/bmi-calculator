@@ -58,13 +58,34 @@ for (const lang of ['vi', 'en'] as const)
         );
         await expect(page.locator('#result')).toBeVisible();
         await expect(page.locator('#weight')).toBeFocused();
-        const scroll = await page.evaluate(() => scrollY);
-        await page.locator('#weight').fill('55');
-        await expect(page.locator('#bmi-value')).toHaveText(
-          lang === 'vi' ? '19,0' : '19.0',
+        // Let native focus scrolling finish before measuring movement
+        // during subsequent edits on the already focused input.
+        await page.evaluate(
+          () =>
+            new Promise<void>((resolve) => {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  resolve();
+                });
+              });
+            }),
         );
-        await expect(page.locator('#weight')).toBeFocused();
-        expect(await page.evaluate(() => scrollY)).toBe(scroll);
+        const scroll = await page.evaluate(() => scrollY);
+        for (const measurement of ['55', '50', '55']) {
+          await page.keyboard.press('ControlOrMeta+A');
+          await page.keyboard.insertText(measurement);
+          await expect(page.locator('#bmi-value')).toHaveText(
+            measurement === '50'
+              ? lang === 'vi'
+                ? '17,3'
+                : '17.3'
+              : lang === 'vi'
+                ? '19,0'
+                : '19.0',
+          );
+          await expect(page.locator('#weight')).toBeFocused();
+          expect(await page.evaluate(() => scrollY)).toBe(scroll);
+        }
         expect(await page.evaluate(inspectInterface)).toEqual([]);
         const folder = `output/responsive/${process.env['CAPTURE_RUN'] ?? 'automatic-input-2026-10-04'}/after`;
         await mkdir(folder, { recursive: true });
