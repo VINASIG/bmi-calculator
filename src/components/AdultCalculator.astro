@@ -1,4 +1,6 @@
 ---
+import SiteFooter from './SiteFooter.astro';
+import '../styles/site-chrome.css';
 import { Calculator, Trash } from '@lucide/astro';
 import ThemeInit from './ThemeInit.astro';
 import SitePreferences from './SitePreferences.astro';
@@ -80,8 +82,8 @@ const schema = {
     <a class="skip-link" href="#calculator">
       {c.skip}
     </a>
-    <div class="app-shell">
-      <header class="site-header">
+    <div class="app-shell" data-site-shell>
+      <header class="site-header" data-site-header>
         <a
           class="brand"
           href="https://vinasig.io.vn/"
@@ -265,10 +267,12 @@ const schema = {
           </a>
         </section>
       </main>
-      <footer class="site-footer">
-        <p>{c.footer}</p>
-        <a href="https://github.com/VINASIG/bmi-calculator">{c.sourceLink}</a>
-      </footer>
+      <SiteFooter
+        lang={lang}
+        source="https://github.com/VINASIG/bmi-calculator"
+        issues="https://github.com/VINASIG/bmi-calculator/issues"
+        licenses={`${base}licenses/NOTICE.txt`}
+      />
     </div>
     <script>
       import '../scripts/adult-calculator.ts';
