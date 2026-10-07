@@ -44,7 +44,6 @@ const schema = {
 <!doctype html>
 <html lang={lang}>
   <head>
-    <ThemeInit />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
@@ -77,6 +76,7 @@ const schema = {
     />
     <link rel="stylesheet" href={`${base}fonts/font.css`} />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <ThemeInit />
   </head>
   <body data-tool="adult" data-language={lang}>
     <a class="skip-link" href="#calculator">
