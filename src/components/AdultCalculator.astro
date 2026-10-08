@@ -15,6 +15,7 @@ import type { Locale } from '../lib/math.ts';
 import '../styles/tokens.css';
 import '../styles/app.css';
 import '../styles/control-surfaces.css';
+import '../styles/destructive-actions.css';
 interface Props {
   lang: Locale;
 }
@@ -164,7 +165,13 @@ const schema = {
                 {lang === 'vi' ? 'Kiểm tra số đo' : 'Check measurements'}
               </button>
               <div class="form-actions">
-                <button type="reset" id="clear" class="clear-button" disabled>
+                <button
+                  type="reset"
+                  id="clear"
+                  class="clear-button"
+                  disabled
+                  data-destructive-action
+                >
                   <Trash size={18} aria-hidden="true" />
                   <span>{c.clear}</span>
                 </button>
